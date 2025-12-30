@@ -1,34 +1,49 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import axios from 'axios'
 import './App.css'
 
-function Card({ name, clr }) {
 
-  return (
-    <div className='card' style={{ background: clr }}>
-      <h1 >Hello , World !!</h1>
-      <p >welcome {name}</p>
-    </div>
-  )
-}
+
+import { About } from './components/About'
+import { Card } from './components/Card'
+import { Profile } from './components/Profile'
+import { PageNotFound } from './components/PageNotFound'
+import { Home } from './components/Home'
+import { Header } from './components/Header'
+import { New } from './components/New'
+import { Detail } from './components/Detail'
+
+
+
+
+
+
+
 
 
 let App = () => {
 
-  let data = ['virat', 'dhoni', 'sanju', 'bhumra', 'virat', 'dhoni', 'sanju', 'bhumra']
-
-  let bg = ['red', 'yellow', 'blue']
-
   return (
     <>
-      {
-        data.map((d, i) => {
-          return <Card name={d} clr={bg[i % bg.length]} />
-        })
-      }
+      <BrowserRouter>
+        <Header />
+        <Routes>
+
+
+          <Route path='/' element={<New />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/profile/:id' element={<Profile />} />
+          <Route path='/card' element={<Card />} />
+          <Route path='/*' element={<PageNotFound />} />
+          <Route path='/detail/:id' element={<Detail />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
+
 }
 
 createRoot(document.getElementById('root')).render(
